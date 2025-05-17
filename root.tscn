@@ -1,12 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cxt45cjcsg7tm"]
+[gd_scene load_steps=11 format=3 uid="uid://cxt45cjcsg7tm"]
 
 [ext_resource type="PackedScene" path="res://character_body_3d.tscn" id="1_pq8q7"]
 [ext_resource type="Texture2D" uid="uid://cemrvhp0fun4h" path="res://textures/environments/512x512(1).jpg69768148-ec9b-4ca5-979e-c7afaf26823cLarger.jpg" id="1_pyidc"]
 [ext_resource type="Script" path="res://progress_bar.gd" id="3_vvh5c"]
 [ext_resource type="Script" path="res://stam_bar.gd" id="4_28aoi"]
-[ext_resource type="Script" uid="uid://csoy2bdcenvbi" path="res://3denemy.gd" id="5_jnlp7"]
-[ext_resource type="PackedScene" uid="uid://w7aqgtn3uf43" path="res://textures/models/skeleton_psx_lowpoly.glb" id="6_l8v81"]
-[ext_resource type="Script" uid="uid://id2rsqq04c06" path="res://textures/models/skeleton_psx_lowpoly.gd" id="7_vyht1"]
+[ext_resource type="PackedScene" uid="uid://bkhabk3mjm0bm" path="res://enemy.tscn" id="5_jnlp7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
 
@@ -17,13 +15,12 @@ sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
 background_mode = 2
 sky = SubResource("Sky_pyidc")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28aoi"]
+[sub_resource type="NavigationMesh" id="NavigationMesh_jnlp7"]
+vertices = PackedVector3Array(-25.2529, -1.14736, -24.0497, -25.2529, -1.14736, 24.9503, 23.7471, -1.14736, 24.9503, 23.7471, -1.14736, -24.0497)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jnlp7"]
 albedo_texture = ExtResource("1_pyidc")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_pyidc"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_pq8q7"]
-size = Vector3(96.3517, 1, 79.6751)
 
 [node name="root" type="Node3D"]
 
@@ -33,20 +30,22 @@ environment = SubResource("Environment_vvh5c")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(0.41119, -0.440905, 0.797826, 0.57609, 0.803987, 0.1474, -0.706431, 0.39901, 0.584591, 6.58969, 8.40366, 6.5842)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="WorldEnvironment"]
+[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_jnlp7")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/StaticBody3D"]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0.0129042, 0.0115519, -0.00167751)
-material_override = SubResource("StandardMaterial3D_28aoi")
-mesh = SubResource("PlaneMesh_pyidc")
-skeleton = NodePath("../../..")
+[node name="StaticBody3D" type="CSGCombiner3D" parent="NavigationRegion3D2"]
+use_collision = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506165, -0.463175, 4.88748)
-shape = SubResource("BoxShape3D_pq8q7")
+[node name="CollisionShape3D" type="CSGBox3D" parent="NavigationRegion3D2/StaticBody3D"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -0.752945, -1.62236, 0.450281)
+size = Vector3(1, 0.001, 1)
+material = SubResource("StandardMaterial3D_jnlp7")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_pq8q7")]
-transform = Transform3D(0.995758, 0.0377356, -0.0839115, -0.035512, 0.998982, 0.0278372, 0.0848765, -0.0247393, 0.996084, 0.0744375, 0.981893, -0.341449)
+[node name="CharacterBody3D" parent="." groups=["Player"] instance=ExtResource("1_pq8q7")]
+transform = Transform3D(0.996291, -0.0120865, -0.0851943, 0.0141467, 0.999622, 0.0236217, 0.0848765, -0.0247393, 0.996084, 0.0744375, -0.5943, -0.341449)
+
+[node name="CharacterBody3D2" parent="." groups=["Player"] instance=ExtResource("5_jnlp7")]
+transform = Transform3D(-0.114897, 0, -1.28588, 0, 1.6, 0, 1.28588, 0, -0.114897, 7.43986, -1.71439, 0.342915)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -61,12 +60,3 @@ offset_top = 46.0
 offset_right = 159.0
 offset_bottom = 73.0
 script = ExtResource("4_28aoi")
-
-[node name="Skeleton" type="CharacterBody3D" parent="."]
-script = ExtResource("5_jnlp7")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Skeleton"]
-
-[node name="Sketchfab_Scene" parent="Skeleton" instance=ExtResource("6_l8v81")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.74054, 0.039947, 2.69152)
-script = ExtResource("7_vyht1")
