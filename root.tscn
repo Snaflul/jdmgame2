@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bni5g74gebk0p"]
+[gd_scene load_steps=11 format=3 uid="uid://bni5g74gebk0p"]
 
 [ext_resource type="PackedScene" uid="uid://bd6l4s5g051km" path="res://character_body_3d.tscn" id="1_pq8q7"]
 [ext_resource type="Texture2D" uid="uid://dvgh7t2ypc0eb" path="res://512x512(1).jpg69768148-ec9b-4ca5-979e-c7afaf26823cLarger.jpg" id="1_pyidc"]
+[ext_resource type="Script" uid="uid://daul3m2ctvwak" path="res://progress_bar.gd" id="3_vvh5c"]
+[ext_resource type="Script" uid="uid://d1yn31fly04ka" path="res://stam_bar.gd" id="4_28aoi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
 
@@ -42,3 +44,17 @@ shape = SubResource("BoxShape3D_pq8q7")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_pq8q7")]
 transform = Transform3D(0.995758, 0.0377356, -0.0839115, -0.035512, 0.998982, 0.0278372, 0.0848765, -0.0247393, 0.996084, 0.0744375, 0.981893, -0.341449)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+offset_right = 158.0
+offset_bottom = 34.0
+script = ExtResource("3_vvh5c")
+
+[node name="StamBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 1.0
+offset_top = 46.0
+offset_right = 159.0
+offset_bottom = 73.0
+script = ExtResource("4_28aoi")
