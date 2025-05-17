@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxt45cjcsg7tm"]
+[gd_scene load_steps=14 format=3 uid="uid://cxt45cjcsg7tm"]
 
 [ext_resource type="PackedScene" path="res://character_body_3d.tscn" id="1_pq8q7"]
 [ext_resource type="Texture2D" uid="uid://cemrvhp0fun4h" path="res://textures/environments/512x512(1).jpg69768148-ec9b-4ca5-979e-c7afaf26823cLarger.jpg" id="1_pyidc"]
 [ext_resource type="Script" path="res://progress_bar.gd" id="3_vvh5c"]
 [ext_resource type="Script" path="res://stam_bar.gd" id="4_28aoi"]
+[ext_resource type="Script" uid="uid://csoy2bdcenvbi" path="res://3denemy.gd" id="5_jnlp7"]
+[ext_resource type="PackedScene" uid="uid://w7aqgtn3uf43" path="res://textures/models/skeleton_psx_lowpoly.glb" id="6_l8v81"]
+[ext_resource type="Script" uid="uid://id2rsqq04c06" path="res://textures/models/skeleton_psx_lowpoly.gd" id="7_vyht1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
 
@@ -58,3 +61,12 @@ offset_top = 46.0
 offset_right = 159.0
 offset_bottom = 73.0
 script = ExtResource("4_28aoi")
+
+[node name="Skeleton" type="CharacterBody3D" parent="."]
+script = ExtResource("5_jnlp7")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Skeleton"]
+
+[node name="Sketchfab_Scene" parent="Skeleton" instance=ExtResource("6_l8v81")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.74054, 0.039947, 2.69152)
+script = ExtResource("7_vyht1")

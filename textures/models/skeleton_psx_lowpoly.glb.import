@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://w7aqgtn3uf43"
-path="res://.godot/imported/skeleton_psx_lowpoly.glb-e8876067e6802c279708e3b31c50b421.scn"
+path="res://.godot/imported/skeleton_psx_lowpoly.glb-51e59ad0981bcbdb58e1599fe215f4f5.scn"
 
 [deps]
 
-source_file="res://skeleton_psx_lowpoly.glb"
-dest_files=["res://.godot/imported/skeleton_psx_lowpoly.glb-e8876067e6802c279708e3b31c50b421.scn"]
+source_file="res://textures/models/skeleton_psx_lowpoly.glb"
+dest_files=["res://.godot/imported/skeleton_psx_lowpoly.glb-51e59ad0981bcbdb58e1599fe215f4f5.scn"]
 
 [params]
 

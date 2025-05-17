@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cq5056wi08nec"
-path.s3tc="res://.godot/imported/skeleton_psx_lowpoly_0.png-8a42b9841a55c75caec995d09b7dfae1.s3tc.ctex"
+path.s3tc="res://.godot/imported/skeleton_psx_lowpoly_0.png-028d4f9f8a7120ad54ed64bfb7af3d0a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://skeleton_psx_lowpoly_0.png"
-dest_files=["res://.godot/imported/skeleton_psx_lowpoly_0.png-8a42b9841a55c75caec995d09b7dfae1.s3tc.ctex"]
+source_file="res://textures/models/skeleton_psx_lowpoly_0.png"
+dest_files=["res://.godot/imported/skeleton_psx_lowpoly_0.png-028d4f9f8a7120ad54ed64bfb7af3d0a.s3tc.ctex"]
 
 [params]
 
