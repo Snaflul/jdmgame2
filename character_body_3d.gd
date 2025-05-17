@@ -45,13 +45,17 @@ func _unhandled_input(event):
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 
 func _physics_process(delta):
-	var sprinting = Input.is_action_pressed("sprint") and not is_dodging and is_on_floor()
+	var sprinting = Input.is_action_pressed("sprint") and not is_dodging and is_on_floor() and stam_bar.current_stam > 0
 	var current_speed = SPEED * (SPRINT_MULTIPLIER if sprinting else 1.0)
 
 	# FOV: If sprinting OR in a far dodge, use SPRINT_FOV
 	var desired_fov = (SPRINT_FOV if sprinting or far_dodge else BASE_FOV)
 	camera.fov = lerp(camera.fov, desired_fov, FOV_LERP_SPEED * delta)
+	
+	if(sprinting):
+		stam_bar.stam_used(10*delta)
 
+	
 	# Timers
 	if is_dodging:
 		dodge_timer -= delta
@@ -61,9 +65,9 @@ func _physics_process(delta):
 			far_dodge = false
 	elif dodge_cooldown > 0.0:
 		dodge_cooldown -= delta
-
+	
 	# Dodge
-	if Input.is_action_just_pressed("dodge") and is_on_floor() and not is_dodging and dodge_cooldown <= 0.0:
+	if Input.is_action_just_pressed("dodge") and is_on_floor() and not is_dodging and dodge_cooldown <= 0.0 && stam_bar.current_stam >= 10:
 		stam_bar.stam_used(10)
 		
 		var input_dir = Input.get_vector("move_left", "move_right", "move_back", "move_forward")
@@ -113,7 +117,8 @@ func _physics_process(delta):
 			body.rotation.y = atan2(velocity.x, velocity.z)
 	else:
 		in_air = false
-		if Input.is_action_just_pressed("move_jump"):
+		if Input.is_action_just_pressed("move_jump") && stam_bar.current_stam >= 10:
+			stam_bar.stam_used(10)
 			velocity.y = JUMP_VELOCITY
 			locked_air_velocity.x = velocity.x
 			locked_air_velocity.z = velocity.z
