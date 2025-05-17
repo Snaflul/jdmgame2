@@ -13,7 +13,11 @@ transform = Transform3D(0.41119, -0.440905, 0.797826, 0.57609, 0.803987, 0.1474,
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment"]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+=======
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00653672, 0.0370073, 0.134355)
+>>>>>>> Stashed changes
 =======
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00653672, 0.0370073, 0.134355)
 >>>>>>> Stashed changes
