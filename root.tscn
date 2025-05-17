@@ -1,19 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://bni5g74gebk0p"]
+[gd_scene load_steps=6 format=3 uid="uid://bni5g74gebk0p"]
 
 [ext_resource type="PackedScene" uid="uid://bd6l4s5g051km" path="res://character_body_3d.tscn" id="1_pq8q7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
+
+[sub_resource type="Sky" id="Sky_pyidc"]
+sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
+
+[sub_resource type="Environment" id="Environment_vvh5c"]
+background_mode = 2
+sky = SubResource("Sky_pyidc")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pyidc"]
 
 [node name="root" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vvh5c")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(0.41119, -0.440905, 0.797826, 0.57609, 0.803987, 0.1474, -0.706431, 0.39901, 0.584591, 6.58969, 8.40366, 6.5842)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment"]
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
 mesh = SubResource("PlaneMesh_pyidc")
 skeleton = NodePath("../..")
