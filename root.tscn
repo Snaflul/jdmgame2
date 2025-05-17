@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bni5g74gebk0p"]
+[gd_scene load_steps=7 format=3 uid="uid://bni5g74gebk0p"]
 
 [ext_resource type="PackedScene" uid="uid://bd6l4s5g051km" path="res://character_body_3d.tscn" id="1_pq8q7"]
 
@@ -13,6 +13,9 @@ sky = SubResource("Sky_pyidc")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pyidc"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_pq8q7"]
+size = Vector3(96.3517, 1, 79.6751)
+
 [node name="root" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -21,10 +24,16 @@ environment = SubResource("Environment_vvh5c")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(0.41119, -0.440905, 0.797826, 0.57609, 0.803987, 0.1474, -0.706431, 0.39901, 0.584591, 6.58969, 8.40366, 6.5842)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment"]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldEnvironment"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/StaticBody3D"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0.0129042, 0.0115519, -0.00167751)
 mesh = SubResource("PlaneMesh_pyidc")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.506165, -0.463175, 4.88748)
+shape = SubResource("BoxShape3D_pq8q7")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_pq8q7")]
-transform = Transform3D(0.995758, 0.0377356, -0.0839115, -0.035512, 0.998982, 0.0278372, 0.0848765, -0.0247393, 0.996084, 0.0744375, 0.164617, -0.341449)
+transform = Transform3D(0.995758, 0.0377356, -0.0839115, -0.035512, 0.998982, 0.0278372, 0.0848765, -0.0247393, 0.996084, 0.0744375, 0.981893, -0.341449)
