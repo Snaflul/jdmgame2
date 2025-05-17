@@ -14,6 +14,10 @@ const FOV_LERP_SPEED = 12.0
 const SPRINT_DODGE_MULTIPLIER = 1.35 # Sprinting makes dodge 35% further
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+@onready var stam_bar = get_node("/root/root/CanvasLayer/StamBar")
+
+
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var body = $body
@@ -60,10 +64,14 @@ func _physics_process(delta):
 
 	# Dodge
 	if Input.is_action_just_pressed("dodge") and is_on_floor() and not is_dodging and dodge_cooldown <= 0.0:
+		stam_bar.stam_used(10)
+		
 		var input_dir = Input.get_vector("move_left", "move_right", "move_back", "move_forward")
 		var forward_dir = -camera.global_transform.basis.z
 		var right_dir = camera.global_transform.basis.x
 		dodge_direction = (forward_dir * input_dir.y + right_dir * input_dir.x).normalized()
+		
+		
 		if dodge_direction == Vector3.ZERO:
 			dodge_direction = -camera.global_transform.basis.z.normalized()
 
