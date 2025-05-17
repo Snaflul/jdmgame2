@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bni5g74gebk0p"]
+
+[ext_resource type="PackedScene" path="res://character_body_3d.tscn" id="1_pq8q7"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pyidc"]
+
+[node name="root" type="Node3D"]
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_pq8q7")]
+transform = Transform3D(0.995758, 0.0377356, -0.0839115, -0.035512, 0.998982, 0.0278372, 0.0848765, -0.0247393, 0.996084, 0.0744375, 0.164617, -0.341449)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.41119, -0.440905, 0.797826, 0.57609, 0.803987, 0.1474, -0.706431, 0.39901, 0.584591, 6.58969, 8.40366, 6.5842)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment"]
+mesh = SubResource("PlaneMesh_pyidc")
+skeleton = NodePath("../..")
