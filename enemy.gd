@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var attack_range: float = 1.5
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
+var health = 80
 var player: CharacterBody3D = null
 
 func _ready() -> void:
