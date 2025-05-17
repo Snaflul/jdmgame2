@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bd6l4s5g051km"]
+[gd_scene load_steps=5 format=3 uid="uid://bd6l4s5g051km"]
 
 [ext_resource type="Script" uid="uid://66shnxrmoiqu" path="res://character_body_3d.gd" id="1_iwpo4"]
+[ext_resource type="PackedScene" uid="uid://curuki6kpeylb" path="res://bear_man_psx.glb" id="2_fb3t6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bu0v1"]
 
@@ -10,6 +11,7 @@
 script = ExtResource("1_iwpo4")
 
 [node name="body" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_bu0v1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -19,3 +21,8 @@ shape = SubResource("CapsuleShape3D_iwpo4")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 0.834598, 0.55086, 0, -0.55086, 0.834598, 0, 1.5, 1.5)
+
+[node name="mesh" type="Node3D" parent="."]
+
+[node name="playermodel" parent="mesh" instance=ExtResource("2_fb3t6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.991806, 0)

@@ -21,6 +21,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var body = $body
+@onready var playermodel = $mesh/playermodel
 
 var dodge_timer := 0.0
 var dodge_cooldown := 0.0
@@ -91,7 +92,7 @@ func _physics_process(delta):
 
 		dodge_timer = current_dodge_time
 		is_dodging = true
-		body.rotation.y = atan2(dodge_direction.x, dodge_direction.z)
+		playermodel.rotation.y = atan2(dodge_direction.x, dodge_direction.z)
 
 	# Main movement and velocity logic
 	if is_dodging:
@@ -114,7 +115,7 @@ func _physics_process(delta):
 		if air_direction != Vector3.ZERO:
 			velocity.x = lerp(velocity.x, air_direction.x * current_speed, AIR_CONTROL)
 			velocity.z = lerp(velocity.z, air_direction.z * current_speed, AIR_CONTROL)
-			body.rotation.y = atan2(velocity.x, velocity.z)
+			playermodel.rotation.y = atan2(velocity.x, velocity.z)
 	else:
 		in_air = false
 		if Input.is_action_just_pressed("move_jump") && stam_bar.current_stam >= 10:
@@ -130,7 +131,7 @@ func _physics_process(delta):
 		if direction != Vector3.ZERO:
 			velocity.x = direction.x * current_speed
 			velocity.z = direction.z * current_speed
-			body.rotation.y = atan2(direction.x, direction.z)
+			playermodel.rotation.y = atan2(direction.x, direction.z)
 		else:
 			velocity.x = 0
 			velocity.z = 0
