@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bphcofwe4rf0o"
-path.s3tc="res://.godot/imported/bear_man_psx_1.png-2fb084bfa3c327b94aea981072339e6e.s3tc.ctex"
+path.s3tc="res://.godot/imported/bear_man_psx_1.png-28ae3b9928789b315d75ce8215ea79f0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://bear_man_psx_1.png"
-dest_files=["res://.godot/imported/bear_man_psx_1.png-2fb084bfa3c327b94aea981072339e6e.s3tc.ctex"]
+source_file="res://textures/models/bear_man_psx_1.png"
+dest_files=["res://.godot/imported/bear_man_psx_1.png-28ae3b9928789b315d75ce8215ea79f0.s3tc.ctex"]
 
 [params]
 

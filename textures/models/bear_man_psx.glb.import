@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://curuki6kpeylb"
-path="res://.godot/imported/bear_man_psx.glb-99e2e0372350e9acc3664d880d35c797.scn"
+path="res://.godot/imported/bear_man_psx.glb-b30e7191e45f07a7f3f13b46b25b7347.scn"
 
 [deps]
 
-source_file="res://bear_man_psx.glb"
-dest_files=["res://.godot/imported/bear_man_psx.glb-99e2e0372350e9acc3664d880d35c797.scn"]
+source_file="res://textures/models/bear_man_psx.glb"
+dest_files=["res://.godot/imported/bear_man_psx.glb-b30e7191e45f07a7f3f13b46b25b7347.scn"]
 
 [params]
 

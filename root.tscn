@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bni5g74gebk0p"]
 
 [ext_resource type="PackedScene" uid="uid://bd6l4s5g051km" path="res://character_body_3d.tscn" id="1_pq8q7"]
-[ext_resource type="Texture2D" uid="uid://dvgh7t2ypc0eb" path="res://512x512(1).jpg69768148-ec9b-4ca5-979e-c7afaf26823cLarger.jpg" id="1_pyidc"]
+[ext_resource type="Texture2D" uid="uid://cemrvhp0fun4h" path="res://textures/environments/512x512(1).jpg69768148-ec9b-4ca5-979e-c7afaf26823cLarger.jpg" id="1_pyidc"]
 [ext_resource type="Script" uid="uid://daul3m2ctvwak" path="res://progress_bar.gd" id="3_vvh5c"]
 [ext_resource type="Script" uid="uid://d1yn31fly04ka" path="res://stam_bar.gd" id="4_28aoi"]
 
@@ -14,7 +14,7 @@ sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
 background_mode = 2
 sky = SubResource("Sky_pyidc")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvh5c"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28aoi"]
 albedo_texture = ExtResource("1_pyidc")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pyidc"]
@@ -34,7 +34,7 @@ transform = Transform3D(0.41119, -0.440905, 0.797826, 0.57609, 0.803987, 0.1474,
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/StaticBody3D"]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0.0129042, 0.0115519, -0.00167751)
-material_override = SubResource("StandardMaterial3D_vvh5c")
+material_override = SubResource("StandardMaterial3D_28aoi")
 mesh = SubResource("PlaneMesh_pyidc")
 skeleton = NodePath("../../..")
 
