@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbe4hyg80omel"]
+
+[ext_resource type="PackedScene" uid="uid://w0646r5cdtn8" path="res://textures/models/playermodel/PlayerModel.fbx" id="1_15875"]
+
+[node name="PlayerModel" instance=ExtResource("1_15875")]
+
+[node name="Camera" parent="." index="0"]
+visible = false
+
+[node name="Icosphere" parent="." index="1"]
+visible = false
+
+[node name="Light" parent="." index="2"]
+visible = false
+
+[node name="root" parent="." index="4"]
+visible = false
+
+[node name="Skeleton3D" parent="root/GLTF_SceneRootNode/Armature_24/GLTF_created_0" index="1"]
+transform = Transform3D(0.956888, 0, 0, 0, 0.956888, 3.55271e-15, 0, -3.55271e-15, 0.956888, 0, 0, 0)

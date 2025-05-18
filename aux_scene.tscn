@@ -1,11 +1,24 @@
-[gd_scene load_steps=21 format=3 uid="uid://bd6l4s5g051km"]
+[gd_scene load_steps=14 format=3 uid="uid://b107jgs24pvsg"]
 
-[ext_resource type="Script" uid="uid://66shnxrmoiqu" path="res://character_body_3d.gd" id="1_iwpo4"]
-[ext_resource type="PackedScene" uid="uid://b107jgs24pvsg" path="res://aux_scene.tscn" id="2_fb3t6"]
+[ext_resource type="PackedScene" uid="uid://cklmrrxghf2bg" path="res://textures/models/playermodel/playermodel.glb" id="1_p27qg"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_bu0v1"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fb3t6"]
+animation = &"Walk"
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iwpo4"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vd578"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_c7tqt"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_p27qg"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_vd578")
+nodes/Animation/position = Vector2(780, 100)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_fb3t6")
+"nodes/Animation 2/position" = Vector2(780, 320)
+nodes/Walk/node = SubResource("AnimationNodeBlend2_c7tqt")
+nodes/Walk/position = Vector2(960, 140)
+nodes/output/position = Vector2(1220, 220)
+node_connections = [&"Walk", 0, &"Animation", &"Walk", 1, &"Animation 2", &"output", 0, &"Walk"]
 
 [sub_resource type="Animation" id="Animation_q2jdy"]
 resource_name = "Backwards"
@@ -1470,74 +1483,49 @@ _data = {
 &"mixamo_com": SubResource("Animation_xrpoy")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fb3t6"]
-animation = &"Walk"
+[node name="AuxScene" instance=ExtResource("1_p27qg")]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c7tqt"]
-animation = &"Sprint"
+[node name="Skeleton3D" parent="Node" index="0"]
+bones/0/position = Vector3(0.0204403, 2.00013, 0.0120063)
+bones/0/rotation = Quaternion(0.00667244, 0.28605, 0.03081, 0.957696)
+bones/1/rotation = Quaternion(-0.108862, 0.0973818, 0.987483, 0.0595222)
+bones/2/rotation = Quaternion(-0.286261, 0.0752339, 0.0130136, 0.955105)
+bones/3/rotation = Quaternion(0.836004, -0.0485449, 0.0662317, 0.542544)
+bones/4/rotation = Quaternion(-0.0178428, 0.00262112, -0.133138, 0.990933)
+bones/6/rotation = Quaternion(0.0104615, 0.0296697, -0.00390827, 0.999497)
+bones/7/rotation = Quaternion(0.0425237, 0.059545, -0.023202, 0.99705)
+bones/8/rotation = Quaternion(0.0427776, 0.0593521, -0.0232387, 0.997049)
+bones/9/rotation = Quaternion(0.0214589, 0.0891738, 0.0258561, 0.995449)
+bones/10/rotation = Quaternion(0.150435, 0.480173, -0.140985, 0.8526)
+bones/12/rotation = Quaternion(0.569865, 0.413137, -0.591522, 0.393286)
+bones/13/rotation = Quaternion(0.465529, 0.0874392, -0.0438939, 0.879608)
+bones/14/rotation = Quaternion(-0.271027, 0.674189, 0.274483, 0.62982)
+bones/15/rotation = Quaternion(0.167278, 0.191958, 0.13812, 0.957128)
+bones/16/rotation = Quaternion(0.172337, -0.618358, 0.172904, 0.747019)
+bones/17/rotation = Quaternion(0.144801, 0.00208306, -0.00539404, 0.989444)
+bones/18/rotation = Quaternion(0.0584777, 0.00312356, 0.0451848, 0.997261)
+bones/20/rotation = Quaternion(0.572493, -0.420797, 0.596611, 0.373145)
+bones/21/rotation = Quaternion(0.370415, -0.211372, -0.127619, 0.895448)
+bones/22/rotation = Quaternion(-0.24226, -0.659615, -0.232716, 0.672355)
+bones/23/rotation = Quaternion(-0.00165028, -0.0202909, 0.0843606, 0.996227)
+bones/24/rotation = Quaternion(0.194518, 0.7028, -0.147498, 0.668191)
+bones/25/rotation = Quaternion(0.0853731, 0.00534297, -0.0359505, 0.995686)
+bones/26/rotation = Quaternion(0.0556183, 0.00836681, -0.019457, 0.998227)
+bones/28/rotation = Quaternion(0.000478134, 0.193536, 0.981065, -0.00736904)
+bones/29/rotation = Quaternion(-0.280262, -0.00518206, -0.00936222, 0.959864)
+bones/30/rotation = Quaternion(0.734718, 0.0776664, -0.0806705, 0.669066)
+bones/31/rotation = Quaternion(-0.0135561, -0.0020346, 0.125222, 0.992034)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nl27k"]
-animation = &"Dodge"
+[node name="AnimationPlayer" parent="." index="1"]
+active = false
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vd578"]
-animation = &"Idle"
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeBlendTree_p27qg")
+advance_expression_base_node = NodePath("../AnimationPlayer2")
+anim_player = NodePath("../AnimationPlayer2")
+parameters/Walk/blend_amount = 0.0
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_obynr"]
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_nl27k"]
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_c7tqt"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nl27k"]
-graph_offset = Vector2(106.619, 3.19561)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_vd578")
-nodes/Animation/position = Vector2(780, 100)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_fb3t6")
-"nodes/Animation 2/position" = Vector2(780, 320)
-"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_c7tqt")
-"nodes/Animation 3/position" = Vector2(1100, 320)
-"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_nl27k")
-"nodes/Animation 4/position" = Vector2(1340, 400)
-nodes/Dodge/node = SubResource("AnimationNodeBlend2_obynr")
-nodes/Dodge/position = Vector2(1460, 160)
-nodes/Sprint/node = SubResource("AnimationNodeBlend2_nl27k")
-nodes/Sprint/position = Vector2(1244.34, 143.894)
-nodes/Walk/node = SubResource("AnimationNodeBlend2_c7tqt")
-nodes/Walk/position = Vector2(960, 140)
-nodes/output/position = Vector2(1720, 200)
-node_connections = [&"Dodge", 0, &"Sprint", &"Dodge", 1, &"Animation 4", &"Sprint", 0, &"Walk", &"Sprint", 1, &"Animation 3", &"Walk", 0, &"Animation", &"Walk", 1, &"Animation 2", &"output", 0, &"Dodge"]
-
-[node name="CharacterBody3D" type="CharacterBody3D"]
-script = ExtResource("1_iwpo4")
-
-[node name="body" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("CapsuleMesh_bu0v1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_iwpo4")
-
-[node name="Head" type="Node3D" parent="."]
-
-[node name="Camera3D" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 0.834598, 0.55086, 0, -0.55086, 0.834598, 0, 1.5, 1.5)
-
-[node name="mesh" type="Node3D" parent="."]
-
-[node name="playermodel" parent="mesh" instance=ExtResource("2_fb3t6")]
-transform = Transform3D(0.456275, 0, 0, 0, 0.496226, 0, 0, 0, 0.484141, 0, 0, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../mesh/playermodel")
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." index="3"]
 libraries = {
 &"": SubResource("AnimationLibrary_xwd0c")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-root_node = NodePath("../mesh/playermodel")
-tree_root = SubResource("AnimationNodeBlendTree_nl27k")
-advance_expression_base_node = NodePath("..")
-anim_player = NodePath("../AnimationPlayer")
-parameters/Dodge/blend_amount = 0.0
-parameters/Sprint/blend_amount = false
-parameters/Walk/blend_amount = false
