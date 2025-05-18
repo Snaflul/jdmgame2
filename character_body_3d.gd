@@ -16,6 +16,7 @@ const SPRINT_DODGE_MULTIPLIER = 1.35 # Sprinting makes dodge 35% further
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var stam_bar = get_node("/root/root/CanvasLayer/StamBar")
+@onready var health_bar = get_node("/root/root/CanvasLayer/HealthBar")
 
 var target_rotation_y := 0.0
 const ROTATION_LERP_SPEED = 10.0
@@ -37,9 +38,12 @@ var current_dodge_speed := DODGE_SPEED
 var current_dodge_time := DODGE_TIME
 var far_dodge := false
 
+
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.fov = BASE_FOV
+
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -129,9 +133,7 @@ func _physics_process(delta):
 		else:
 			velocity.x = 0
 			velocity.z = 0
-
-	# --- Smooth rotation section ---
-	# Always smoothly rotate the playermodel towards the last target direction
+			
 	playermodel.rotation.y = lerp_angle(playermodel.rotation.y, target_rotation_y, ROTATION_LERP_SPEED * delta)
 	
 	move_and_slide()

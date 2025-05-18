@@ -13,3 +13,5 @@ func take_damage(amount: int):
 	current_health = max(current_health - amount, 0)
 	update_bar()
 	
+	
+	
