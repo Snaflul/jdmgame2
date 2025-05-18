@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" path="res://character_body_3d.tscn" id="1_pq8q7"]
 [ext_resource type="Texture2D" uid="uid://cemrvhp0fun4h" path="res://textures/environments/512x512(1).jpg69768148-ec9b-4ca5-979e-c7afaf26823cLarger.jpg" id="1_pyidc"]
-[ext_resource type="Script" path="res://progress_bar.gd" id="3_vvh5c"]
 [ext_resource type="Script" path="res://stam_bar.gd" id="4_28aoi"]
+[ext_resource type="Script" uid="uid://b6ve6tpyussqt" path="res://health_bar.gd" id="4_jnlp7"]
 [ext_resource type="PackedScene" uid="uid://bkhabk3mjm0bm" path="res://enemy.tscn" id="5_jnlp7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
@@ -52,7 +52,7 @@ transform = Transform3D(-0.114897, 0, -1.28588, 0, 1.6, 0, 1.28588, 0, -0.114897
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
 offset_right = 158.0
 offset_bottom = 34.0
-script = ExtResource("3_vvh5c")
+script = ExtResource("4_jnlp7")
 
 [node name="StamBar" type="ProgressBar" parent="CanvasLayer"]
 offset_left = 1.0
