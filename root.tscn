@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://cxt45cjcsg7tm"]
 
-[ext_resource type="PackedScene" path="res://character_body_3d.tscn" id="1_pq8q7"]
+[ext_resource type="PackedScene" uid="uid://bd6l4s5g051km" path="res://character_body_3d.tscn" id="1_pq8q7"]
 [ext_resource type="Texture2D" uid="uid://cemrvhp0fun4h" path="res://textures/environments/512x512(1).jpg69768148-ec9b-4ca5-979e-c7afaf26823cLarger.jpg" id="1_pyidc"]
-[ext_resource type="Script" path="res://stam_bar.gd" id="4_28aoi"]
+[ext_resource type="Script" uid="uid://d1yn31fly04ka" path="res://stam_bar.gd" id="4_28aoi"]
 [ext_resource type="Script" uid="uid://b6ve6tpyussqt" path="res://health_bar.gd" id="4_jnlp7"]
 [ext_resource type="PackedScene" uid="uid://bkhabk3mjm0bm" path="res://enemy.tscn" id="5_jnlp7"]
 
@@ -45,7 +45,7 @@ material = SubResource("StandardMaterial3D_jnlp7")
 transform = Transform3D(0.996291, -0.0120865, -0.0851943, 0.0141467, 0.999622, 0.0236217, 0.0848765, -0.0247393, 0.996084, 0.0744375, -0.5943, -0.341449)
 
 [node name="CharacterBody3D2" parent="." groups=["Player"] instance=ExtResource("5_jnlp7")]
-transform = Transform3D(-0.114897, 0, -1.28588, 0, 1.6, 0, 1.28588, 0, -0.114897, 7.43986, -1.71439, 0.342915)
+transform = Transform3D(-0.114897, 0, -1.28588, 0, 1.6, 0, 1.28588, 0, -0.114897, 7.43986, 4.26477, 35.2285)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
