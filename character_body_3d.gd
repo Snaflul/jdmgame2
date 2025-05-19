@@ -77,12 +77,15 @@ func _physics_process(delta):
 	if sprinting:
 		stam_bar.stam_used(10 * delta)
 
+	# --- DODGE LOGIC ---
 	if is_dodging:
 		dodge_timer -= delta
 		elapsed_dodge_time += delta
 		if dodge_timer <= 0.0:
 			is_dodging = false
 			dodge_cooldown = DODGE_COOLDOWN
+			dodge_blend = 0.0 # FIX: Immediately reset dodge blend when dodge ends
+			print_debug("DODGE END --- dodge_blend reset to 0.0")
 	else:
 		elapsed_dodge_time = 0.0
 		if dodge_cooldown > 0.0:
@@ -103,6 +106,7 @@ func _physics_process(delta):
 		is_dodging = true
 		elapsed_dodge_time = 0.0
 		target_rotation_y = atan2(dodge_direction.x, dodge_direction.z)
+		print_debug("DODGE START --- dodge_timer = %s, is_dodging = %s, dodge_direction = %s" % [dodge_timer, is_dodging, dodge_direction])
 
 	if is_dodging:
 		var speed
@@ -161,7 +165,17 @@ func _physics_process(delta):
 	sprint_blend = lerp(sprint_blend, target_sprint_blend, SPRINT_BLEND_SPEED * delta)
 
 	var target_dodge_blend = 1.0 if is_dodging else 0.0
-	dodge_blend = lerp(dodge_blend, target_dodge_blend, DODGE_BLEND_SPEED * delta)
+
+	# Only lerp if not forcibly reset above
+	if not is_dodging and dodge_blend == 0.0:
+		# Already reset, do not blend further
+		pass
+	else:
+		dodge_blend = lerp(dodge_blend, target_dodge_blend, DODGE_BLEND_SPEED * delta)
+
+	# Debug output for blend values
+	if int(Time.get_ticks_msec()) % 300 < 20:
+		print_debug("walk_blend=%.2f sprint_blend=%.2f dodge_blend=%.2f is_dodging=%s" % [walk_blend, sprint_blend, dodge_blend, is_dodging])
 
 	if animtree:
 		animtree["parameters/Walk/blend_amount"] = walk_blend
