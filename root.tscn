@@ -42,7 +42,7 @@ size = Vector3(1, 0.001, 1)
 material = SubResource("StandardMaterial3D_jnlp7")
 
 [node name="CharacterBody3D" parent="." groups=["Player"] instance=ExtResource("1_pq8q7")]
-transform = Transform3D(0.996291, -0.0120865, -0.0851943, 0.0141467, 0.999622, 0.0236217, 0.0848765, -0.0247393, 0.996084, 0.0744375, -0.5943, -0.341449)
+transform = Transform3D(0.996291, -0.0120865, -0.0851943, 0.0141467, 0.999622, 0.0236217, 0.0848765, -0.0247393, 0.996084, 0.0744375, 0.39368, -0.341449)
 
 [node name="CharacterBody3D2" parent="." groups=["Player"] instance=ExtResource("5_jnlp7")]
 transform = Transform3D(-0.114897, 0, -1.28588, 0, 1.6, 0, 1.28588, 0, -0.114897, 7.43986, 4.26477, 35.2285)
