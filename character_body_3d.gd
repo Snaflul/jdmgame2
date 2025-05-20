@@ -12,7 +12,7 @@ const DODGE_SLOW_SPEED = 2.5
 const DODGE_COOLDOWN = 1.25
 
 const AIR_CONTROL = 0.03
-const SPRINT_MULTIPLIER = 1.5
+const SPRINT_MULTIPLIER = 1.85
 const BASE_FOV = 70.0
 const SPRINT_FOV = 85.0
 const FOV_LERP_SPEED = 12.0
@@ -30,8 +30,8 @@ const ROTATION_LERP_SPEED = 10.0
 @onready var body = $body
 @onready var playermodel = $mesh/playermodel
 
-# AnimationTree references
 @onready var animtree = $AnimationTree
+@onready var state_machine = $AnimationTree.get("parameters/playback")
 
 var dodge_timer := 0.0
 var dodge_cooldown := 0.0
@@ -42,22 +42,9 @@ var elapsed_dodge_time := 0.0
 var in_air := false
 var locked_air_velocity := Vector3.ZERO
 
-# Animation blend variables
-var walk_blend := 0.0
-const WALK_BLEND_SPEED = 8.0
-var sprint_blend := 0.0
-const SPRINT_BLEND_SPEED = 8.0
-var dodge_blend := 0.0
-const DODGE_BLEND_SPEED = 20.0
-
 func _ready():
-	# Ensure all relevant animations are looping
-	$AnimationPlayer.get_animation("Walk").loop = true
-	$AnimationPlayer.get_animation("Idle").loop = true
-	$AnimationPlayer.get_animation("Sprint").loop = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.fov = BASE_FOV
-
 	if animtree:
 		animtree.active = true
 
@@ -84,8 +71,9 @@ func _physics_process(delta):
 		if dodge_timer <= 0.0:
 			is_dodging = false
 			dodge_cooldown = DODGE_COOLDOWN
-			dodge_blend = 0.0 # FIX: Immediately reset dodge blend when dodge ends
-			print_debug("DODGE END --- dodge_blend reset to 0.0")
+			print_debug("DODGE END")
+			# Transition animation state after roll ends
+			_transition_state_after_roll()
 	else:
 		elapsed_dodge_time = 0.0
 		if dodge_cooldown > 0.0:
@@ -107,6 +95,11 @@ func _physics_process(delta):
 		elapsed_dodge_time = 0.0
 		target_rotation_y = atan2(dodge_direction.x, dodge_direction.z)
 		print_debug("DODGE START --- dodge_timer = %s, is_dodging = %s, dodge_direction = %s" % [dodge_timer, is_dodging, dodge_direction])
+		
+		# --- AnimationTree State Machine logic for Roll ---
+		if animtree and state_machine:
+			if state_machine.get_current_node() != "Roll":
+				state_machine.travel("Roll")
 
 	if is_dodging:
 		var speed
@@ -155,31 +148,24 @@ func _physics_process(delta):
 			
 	playermodel.rotation.y = lerp_angle(playermodel.rotation.y, target_rotation_y, ROTATION_LERP_SPEED * delta)
 
-	# --- AnimationTree blend logic (Godot 4.x) ---
-	var input_dir = Input.get_vector("move_left", "move_right", "move_back", "move_forward")
-	var is_walking = input_dir.length() > 0.01 and is_on_floor() and not is_dodging
-	var target_walk_blend = 1.0 if is_walking else 0.0
-	walk_blend = lerp(walk_blend, target_walk_blend, WALK_BLEND_SPEED * delta)
-
-	var target_sprint_blend = 1.0 if sprinting else 0.0
-	sprint_blend = lerp(sprint_blend, target_sprint_blend, SPRINT_BLEND_SPEED * delta)
-
-	var target_dodge_blend = 1.0 if is_dodging else 0.0
-
-	# Only lerp if not forcibly reset above
-	if not is_dodging and dodge_blend == 0.0:
-		# Already reset, do not blend further
-		pass
-	else:
-		dodge_blend = lerp(dodge_blend, target_dodge_blend, DODGE_BLEND_SPEED * delta)
-
-	# Debug output for blend values
-	if int(Time.get_ticks_msec()) % 300 < 20:
-		print_debug("walk_blend=%.2f sprint_blend=%.2f dodge_blend=%.2f is_dodging=%s" % [walk_blend, sprint_blend, dodge_blend, is_dodging])
-
-	if animtree:
-		animtree["parameters/Walk/blend_amount"] = walk_blend
-		animtree["parameters/Sprint/blend_amount"] = sprint_blend
-		animtree["parameters/Dodge/blend_amount"] = dodge_blend
+	# --- AnimationTree State Machine logic (no redundant travel during roll) ---
+	if animtree and state_machine and not is_dodging:
+		_transition_state_after_roll()
 
 	move_and_slide()
+
+# --- Helper function to handle post-roll state transitions ---
+func _transition_state_after_roll():
+	var input_dir = Input.get_vector("move_left", "move_right", "move_back", "move_forward")
+	var is_moving = input_dir.length() > 0.01 and is_on_floor()
+	var sprinting = Input.is_action_pressed("sprint") and is_on_floor() and stam_bar.current_stam > 0
+	if is_moving:
+		if sprinting:
+			if state_machine.get_current_node() != "Sprint":
+				state_machine.travel("Sprint")
+		else:
+			if state_machine.get_current_node() != "Walk":
+				state_machine.travel("Walk")
+	else:
+		if state_machine.get_current_node() != "Idle":
+			state_machine.travel("Idle")
