@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dydg5q22ia8i8"]
+
+[node name="LocalCamera" type="Node"]

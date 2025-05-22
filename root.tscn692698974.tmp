@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://cxt45cjcsg7tm"]
+
+[ext_resource type="PackedScene" uid="uid://bd6l4s5g051km" path="res://character_body_3d.tscn" id="1_pq8q7"]
+[ext_resource type="Texture2D" uid="uid://cemrvhp0fun4h" path="res://textures/environments/512x512(1).jpg69768148-ec9b-4ca5-979e-c7afaf26823cLarger.jpg" id="1_pyidc"]
+[ext_resource type="Script" uid="uid://d1yn31fly04ka" path="res://stam_bar.gd" id="4_28aoi"]
+[ext_resource type="Script" uid="uid://b6ve6tpyussqt" path="res://health_bar.gd" id="4_jnlp7"]
+[ext_resource type="PackedScene" uid="uid://bkhabk3mjm0bm" path="res://enemy.tscn" id="5_jnlp7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pq8q7"]
+
+[sub_resource type="Sky" id="Sky_pyidc"]
+sky_material = SubResource("ProceduralSkyMaterial_pq8q7")
+
+[sub_resource type="Environment" id="Environment_vvh5c"]
+background_mode = 2
+sky = SubResource("Sky_pyidc")
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jnlp7"]
+vertices = PackedVector3Array(-25.2529, -1.14736, -24.0497, -25.2529, -1.14736, 24.9503, 23.7471, -1.14736, 24.9503, 23.7471, -1.14736, -24.0497)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jnlp7"]
+albedo_texture = ExtResource("1_pyidc")
+
+[node name="root" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vvh5c")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.41119, -0.440905, 0.797826, 0.57609, 0.803987, 0.1474, -0.706431, 0.39901, 0.584591, 6.58969, 8.40366, 6.5842)
+
+[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_jnlp7")
+
+[node name="StaticBody3D" type="CSGCombiner3D" parent="NavigationRegion3D2"]
+use_collision = true
+
+[node name="CollisionShape3D" type="CSGBox3D" parent="NavigationRegion3D2/StaticBody3D"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -0.752945, -1.62236, 0.450281)
+size = Vector3(1, 0.001, 1)
+material = SubResource("StandardMaterial3D_jnlp7")
+
+[node name="CharacterBody3D" parent="." groups=["Player"] instance=ExtResource("1_pq8q7")]
+transform = Transform3D(0.996291, -0.0120865, -0.0851943, 0.0141467, 0.999622, 0.0236217, 0.0848765, -0.0247393, 0.996084, 0.0744375, 0.39368, -0.341449)
+
+[node name="CharacterBody3D2" parent="." groups=["Player"] instance=ExtResource("5_jnlp7")]
+transform = Transform3D(-0.114897, 0, -1.28588, 0, 1.6, 0, 1.28588, 0, -0.114897, 7.43986, -18.2776, -0.285728)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+offset_right = 158.0
+offset_bottom = 34.0
+script = ExtResource("4_jnlp7")
+
+[node name="StamBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 1.0
+offset_top = 46.0
+offset_right = 159.0
+offset_bottom = 73.0
+script = ExtResource("4_28aoi")
